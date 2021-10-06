@@ -59,6 +59,17 @@ app.delete('/api/persons/:id', (req, res) => {
 
 app.post('/api/persons', (req, res) => {
   const body = req.body
+
+  const existing = persons.some(p => p.name.toLowerCase() === body.name.toLowerCase())
+
+
+  if (!body.name || !body.number){
+    return res.status(400).json({error: 'content missing'})
+  } 
+  else if(existing){
+    return res.status(400).json({error: 'name must be unique'})
+  }
+
   const person = {
     id: Number(Math.random()),
     name: body.name,

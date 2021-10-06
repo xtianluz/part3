@@ -26,14 +26,18 @@ let persons = [
     }
 ]
 
-app.get('/', (req, res) => {
-    res.send('<h1>Phonebook Backend</h1>')
+app.get('/info', (req, res) => {
+    const totalPersons = persons.length
+    const date = new Date()
+    res.send(`
+    <p>Phonbook has info for ${totalPersons}</p>
+    <p>${date}</p>
+    `)
 })
 
 app.get('/api/persons', (req, res) => {
     res.json(persons)
 })
-
 
 const PORT = 3001
 app.listen(PORT)
